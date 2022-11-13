@@ -696,7 +696,7 @@ endif
 
 ifeq ($(cc-name),clang)
 # Add Some optimization flags for clang
-KBUILD_CFLAGS	+= -mcpu=cortex-a53 \
+KBUILD_CFLAGS	+= -mcpu=cortex-a53 -foptimize-sibling-calls \
 -pipe \
 -ffunction-sections \
 -ffp-model=fast
