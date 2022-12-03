@@ -30,6 +30,12 @@ LDFLAGS_vmlinux	+= --fix-cortex-a53-843419
   endif
 endif
 
+ifeq ($(CONFIG_ARM64_ERRATUM_835769),y)
+KBUILD_CFLAGS += -mfix-cortex-a53-835769
+else
+KBUILD_CFLAGS += -mno-fix-cortex-a53-835769
+endif
+
 KBUILD_DEFCONFIG := defconfig
 
 # Check for binutils support for specific extensions

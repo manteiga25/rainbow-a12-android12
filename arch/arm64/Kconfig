@@ -477,6 +477,14 @@ config ARM64_ERRATUM_843419
 
 	  If unsure, say Y.
 
+config ARM64_ERRATUM_835769
+        bool "Cortex-A53: 835769: This will involve inserting a NOP instruction between memory instructions and 64-bit integer multiply-accumulate instructions"
+        default y
+        help
+          This option compiles the kernel with '-mfix-cortex-a53-835769' and generate
+          NOP instruction between memory instructions and 64-bit integer multiply-accumulate instructions on
+	  Cortex-A53 parts up to r0p4.
+
 config ARM64_ERRATUM_1024718
 	bool "Cortex-A55: 1024718: Update of DBM/AP bits without break before make might result in incorrect update"
 	default y
