@@ -15,7 +15,6 @@
  * more details.
  *
  */
-
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/delay.h>
@@ -31,7 +30,6 @@
 #endif
 #include <linux/of.h>
 #include <linux/of_irq.h>
-#include <uapi/linux/sched/types.h>
 #include <linux/sched.h>
 #include <linux/kthread.h>
 
@@ -722,11 +720,6 @@ static ssize_t nvt_flash_read(struct file *file, char __user *buff, size_t count
 		return -EFAULT;
 	}
 
-	if (str[1] > (sizeof(str) - 2) || str[1] < 1) {
-		NVT_ERR("i2c transfer lens invalid\n");
-		return -EFAULT;
-	}
-
 #if NVT_TOUCH_ESD_PROTECT
 	/*
 	 * stop esd check work to avoid case that 0x77 report righ after here to enable esd check again
@@ -877,7 +870,7 @@ static int32_t nvt_flash_proc_init(void)
 #define FUNCPAGE_GESTURE         1
 
 #ifdef CONFIG_PM_WAKELOCKS
-static struct wakeup_source *gestrue_wakelock;
+static struct wakeup_source gestrue_wakelock;
 #else
 static struct wake_lock gestrue_wakelock;
 #endif
@@ -1212,7 +1205,7 @@ static irqreturn_t nvt_ts_irq_handler(int32_t irq, void *dev_id)
 #if WAKEUP_GESTURE
 	if (bTouchIsAwake == 0) {
 #ifdef CONFIG_PM_WAKELOCKS
-		__pm_wakeup_event(gestrue_wakelock, msecs_to_jiffies(5000));
+		__pm_wakeup_event(&gestrue_wakelock, msecs_to_jiffies(5000));
 #else
 		wake_lock_timeout(&gestrue_wakelock, msecs_to_jiffies(5000));
 #endif
@@ -1559,7 +1552,7 @@ static int32_t nvt_ts_probe(struct i2c_client *client, const struct i2c_device_i
 		input_set_capability(ts->input_dev, EV_KEY, gesture_key_array[retry]);
 	}
 #ifdef CONFIG_PM_WAKELOCKS
-	gestrue_wakelock = wakeup_source_register(NULL, "poll-wake-lock");
+	wakeup_source_init(&gestrue_wakelock, "poll-wake-lock");
 #else
 	wake_lock_init(&gestrue_wakelock, WAKE_LOCK_SUSPEND, "poll-wake-lock");
 #endif

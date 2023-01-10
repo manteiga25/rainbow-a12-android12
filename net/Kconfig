@@ -236,7 +236,6 @@ source "net/switchdev/Kconfig"
 source "net/l3mdev/Kconfig"
 source "net/qrtr/Kconfig"
 source "net/ncsi/Kconfig"
-source "net/wireguard/Kconfig"
 # SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA {
 source "net/ncm/Kconfig"
 # SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA }
@@ -449,6 +448,8 @@ config FAILOVER
 	  paravirtual datapath when the VF is unplugged.
 
 endif   # if NET
+
+source "net/wireguard/Kconfig"
 
 # Used by archs to tell that they support BPF JIT compiler plus which flavour.
 # Only one of the two can be selected for a specific arch since eBPF JIT supersedes

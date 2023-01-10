@@ -251,14 +251,14 @@ EXPORT_SYMBOL(strscpy);
  * not recommended for usage. Instead, its definition is provided in case
  * the compiler lowers other libcalls to stpcpy.
  */
-char *stpcpy(char *__restrict__ dest, const char *__restrict__ src);
-char *stpcpy(char *__restrict__ dest, const char *__restrict__ src)
-{
-	while ((*dest++ = *src++) != '\0')
-		/* nothing */;
-	return --dest;
-}
-EXPORT_SYMBOL(stpcpy);
+//char *stpcpy(char *__restrict__ dest, const char *__restrict__ src);
+//char *stpcpy(char *__restrict__ dest, const char *__restrict__ src)
+//{
+//	while ((*dest++ = *src++) != '\0')
+//		/* nothing */;
+//	return --dest;
+//}
+//EXPORT_SYMBOL(stpcpy);
 
 /**
  * strscpy_pad() - Copy a C-string into a sized buffer

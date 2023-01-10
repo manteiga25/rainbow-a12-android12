@@ -40,6 +40,13 @@ extern int memcmp(const void *, const void *, size_t);
 
 #define __HAVE_ARCH_MEMCHR
 extern void *memchr(const void *, int, __kernel_size_t);
+
+#define __HAVE_ARCH_STRCPY
+extern char * strcpy(char *,const char *);
+
+#define __HAVE_ARCH_STPCPY
+extern char *stpcpy(char *__restrict__ dest, const char *__restrict__ src);
+
 #endif
 
 #define __HAVE_ARCH_MEMCPY
